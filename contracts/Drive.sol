@@ -14,17 +14,22 @@ contract Drive {
         bool access;
     }
 
-    Image[] public imageArray;
-    mapping(address => Image[]) public images;
+    // Events
+    event ImageAdded(string name, string imgUrl);
+    event AccessGiven(address user, bool access);
+
+    Image[] private imageArray;
+    mapping(address => Image[]) private images;
     mapping(address => mapping(address => bool)) public ownerShip;
-    mapping(address => Access[]) public accessList;
-    mapping(address => mapping(address => bool)) previousData;
-    uint256 dataId = 0;
+    mapping(address => Access[]) private accessList;
+    mapping(address => mapping(address => bool)) public previousData;
+    uint256 private dataId = 0;
 
     function addMedia(string memory _name, string memory _imgUrl) public {
         images[msg.sender].push(Image(dataId, _name, _imgUrl));
         imageArray.push(Image(dataId, _name, _imgUrl));
         dataId++;
+        emit ImageAdded(_name, _imgUrl);
     }
 
     function giveAccess(address _user) external {
@@ -41,6 +46,7 @@ contract Drive {
                 accessList[msg.sender].push(Access(_user, true));
                 previousData[msg.sender][_user] = true;
             }
+            emit AccessGiven(_user, true);
         }
     }
 
@@ -53,6 +59,23 @@ contract Drive {
                     break;
                 }
             }
+            emit AccessGiven(_user, false);
         }
+    }
+
+    function display(address _user) external view returns (Image[] memory) {
+        require(
+            msg.sender == _user || ownerShip[_user][msg.sender],
+            "You don't have access!"
+        );
+        return images[_user];
+    }
+
+    function getAccessList() public view returns (Access[] memory) {
+        return accessList[msg.sender];
+    }
+
+    function getDataId() public view returns (uint256) {
+        return dataId;
     }
 }
