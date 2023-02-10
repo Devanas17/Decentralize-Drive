@@ -20,11 +20,11 @@ const Navbar = () => {
       </div>
       <div className="">
         {!currentAccount ? (
-          <button className="bg-white shadow-md text-xs h-12 w-32 flex items-center justify-center border-gray-100" onClick={() => connectWallet()}>
+          <button className="bg-yellow-500 text-white shadow-md text-xs h-12 w-32 flex items-center justify-center border-gray-100" onClick={() => connectWallet()}>
             Connect Wallet
           </button>
         ) : (
-          <button className="bg-white shadow-md text-xs h-12 w-32 flex items-center justify-center border-gray-100">
+          <button className="bg-yellow-500 text-white shadow-md text-xs h-12 w-32 flex items-center justify-center border-gray-100">
             {currentAccount.slice(0,7)}...
           </button>
         )}

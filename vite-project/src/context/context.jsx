@@ -34,10 +34,8 @@ export const AppProvider = ({ children }) => {
   const addFile = async ( name, imgUrl) => {
     try {
       const contract = await connectWithContract();
-      console.log("Contract", contract)
       const add = await contract.addMedia(name, imgUrl, {gasLimit: 5000000});
       await add.wait();
-      // window.location.reload();
     } catch (error) {
       console.log("something went wrong in Add File.", error);
     }
@@ -45,6 +43,14 @@ export const AppProvider = ({ children }) => {
 
 
   useEffect(() => {
+    window.ethereum.on("chainChanged", () => {
+      window.location.reload();
+    });
+
+    window.ethereum.on("accountsChanged", () => {
+      window.location.reload();
+    });
+    checkIfWalletConnected()
     fetchData();
   }, []);
 
