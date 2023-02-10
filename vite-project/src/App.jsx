@@ -1,32 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useState, useContext } from 'react'
 import './App.css'
+import Feed from './components/Feed'
+import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
+import { AppContext } from './context/context'
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
+const {addFile} = useContext(AppContext)
+const name = "Aman"
+const img = "https://images.pexels.com/photos/14567053/pexels-photo-14567053.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <Navbar />
+      <main className="flex">
+        <Sidebar />
+        <Feed />
+      </main>
     </div>
   )
 }
