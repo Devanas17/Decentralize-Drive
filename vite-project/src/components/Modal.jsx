@@ -20,19 +20,21 @@ const Modal = ({ openModal }) => {
           data: formData,
           headers: {
             pinata_api_key: `Your Api Key`,
-            pinata_secret_api_key: `You Secrete Key`,
+            pinata_secret_api_key: `Your Secrete Key`,
             "Content-Type": "multipart/form-data",
           },
         });
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
         await addFile(name, ImgHash);
+        
+        alert(`Here's your image: ipfs://${resFile.data.IpfsHash}`)
       } catch (error) {
         console.log(error);
       }
     }
   };
   const retrieveFile = (e) => {
-    const data = e.target.files[0]; //files array of files object
+    const data = e.target.files[0]; 
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(data);
     reader.onloadend = () => {

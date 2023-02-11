@@ -11,6 +11,7 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [accessLists, setAccessLists] = useState([]);
+  const [data, setData] = useState()
  
 
 
@@ -19,9 +20,7 @@ export const AppProvider = ({ children }) => {
       const contract = await connectWithContract();
       const connectAccount = await connectWallet();
       setCurrentAccount(connectAccount);
-    
       const accessLists = await contract.getAccessList();
-      console.log("The Access LIst", accessLists)
       setAccessLists(accessLists);
    
     } catch (error) {
@@ -41,6 +40,21 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const getData = async(userAddress) =>{
+    try {
+      const contract = await connectWithContract()
+      const get = await contract.display(userAddress)
+      setData(get)
+    } catch (error) {
+      console.log("Get Data", error)
+    }
+  }
+
+  useEffect(() => {
+    checkIfWalletConnected()
+  }, [])
+
+
 
   useEffect(() => {
     window.ethereum.on("chainChanged", () => {
@@ -59,8 +73,10 @@ export const AppProvider = ({ children }) => {
       value={{
         currentAccount,
         accessLists,
+        data,
         connectWallet,
-        addFile
+        addFile,
+        getData
       }}
     >
       {children}
