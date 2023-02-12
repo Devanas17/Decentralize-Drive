@@ -6,7 +6,7 @@ import { AppContext } from "../context/context";
 const Navbar = () => {
   const { connectWallet, currentAccount } = useContext(AppContext);
   return (
-    <div className="w-full px-6 md:px-10 h-20 bg-white shadow-sm flex items-center justify-between md:space-x-36">
+    <div className="w-full px-6 md:px-10 h-20 bg-white shadow-sm flex items-center justify-between space-x-4 md:space-x-36">
       <div className="h-14 w-14 flex space-x-2 items-center">
         <img src={DriveLogo} alt="" className="w-full h-full object-contain" />
       </div>
@@ -20,11 +20,11 @@ const Navbar = () => {
       </div>
       <div className="">
         {!currentAccount ? (
-          <button className="bg-yellow-500 text-white shadow-md text-xs h-12 w-32 flex items-center justify-center border-gray-100" onClick={() => connectWallet()}>
+          <button className="bg-blue-700 text-white shadow-md rounded-lg text-xs h-11 w-32 flex items-center justify-center border-gray-100" onClick={() => connectWallet()}>
             Connect Wallet
           </button>
         ) : (
-          <button className="bg-yellow-500 text-white shadow-md text-xs h-12 w-32 flex items-center justify-center border-gray-100">
+          <button className="bg-blue-700 text-white shadow-md rounded-lg text-xs h-11 w-32 flex items-center justify-center border-gray-100">
             {currentAccount.slice(0,7)}...
           </button>
         )}

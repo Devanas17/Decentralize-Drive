@@ -20,14 +20,13 @@ const Modal = ({ openModal }) => {
           data: formData,
           headers: {
             pinata_api_key: `Your Api Key`,
-            pinata_secret_api_key: `Your Secrete Key`,
+            pinata_secret_api_key: `Your Secret Key`,
             "Content-Type": "multipart/form-data",
           },
         });
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
+
         await addFile(name, ImgHash);
-        
-        alert(`Here's your image: ipfs://${resFile.data.IpfsHash}`)
       } catch (error) {
         console.log(error);
       }
@@ -43,7 +42,8 @@ const Modal = ({ openModal }) => {
     e.preventDefault();
   };
   return (
-    <div className="border shadow-md bg-white rounded-xl z-10 absolute top-0 left-0  p-3 h-[350px] w-[300px]">
+    <div className="border shadow-md bg-white rounded-xl z-10 absolute top-0 left-0  p-3 h-[300px] w-[200px] sm:h-[350px] sm:w-[300px]">
+ 
       <img
         src={Close}
         alt=""
@@ -53,6 +53,7 @@ const Modal = ({ openModal }) => {
       <form className="mt-8 flex flex-col space-y-5" onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className=" text-lg font-medium ">
           Choose File
+
         </label>
         <input
           type="file"
